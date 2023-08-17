@@ -32,6 +32,11 @@ function App() {
     findTodoElement.isCompleted = !findTodoElement.isCompleted
     setTodos((prev) => [...prev]) // []를 새로 씌워줘야, 배열 주소값이 바껴 값이 바뀌고, set이 호출된다
   }
+
+  const deleteTodos = (id) => {
+    const deletedElement = todos.filter((e) => e.id !== id)
+    setTodos((prev) => [...deletedElement])
+  }
   return (
     <div className="App">
       <header>
