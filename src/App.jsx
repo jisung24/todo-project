@@ -1,5 +1,6 @@
 import './App.css'
 import { useRef, useState } from 'react'
+import Button from './components/atoms/Button'
 
 function App() {
   const [inputValue, setInputValue] = useState('')
@@ -37,6 +38,20 @@ function App() {
     const deletedElement = todos.filter((e) => e.id !== id)
     setTodos((prev) => [...deletedElement])
   }
+
+  const allTodos = (todos) => {
+    return todos.length
+  }
+
+  const completedTodos = (todos) => {
+    const completed = todos.filter((e) => e.isCompleted)
+    return completed.length
+  }
+
+  const unCompletedTodos = (todos) => {
+    const unCompleted = todos.filter((e) => !e.isCompleted)
+    return unCompleted.length
+  }
   return (
     <div className="App">
       <header>
@@ -63,23 +78,20 @@ function App() {
               style={isCompleted ? { textDecoration: 'line-through' } : {}}
             >
               <h2>{todoList}</h2>
-              <button
-                onClick={() => {
-                  toggleTodos(id)
-                }}
-              >
-                수정
-              </button>
-              <button
-                onClick={() => {
-                  deleteTodos(id)
-                }}
-              >
-                삭제
-              </button>
+              <Button text="수정" onClick={toggleTodos} id={id} />
+              <Button text="삭제" onClick={deleteTodos} id={id} />
             </li>
           ))}
         </ul>
+
+        <p>all</p>
+        <span>{allTodos(todos)}개</span>
+
+        <p>completed</p>
+        <span>{completedTodos(todos)}개</span>
+
+        <p>not</p>
+        <span>{unCompletedTodos(todos)}개</span>
       </main>
     </div>
   )
