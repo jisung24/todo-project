@@ -1,8 +1,8 @@
 import './App.css'
 import { useState } from 'react'
 import TodoLogo from './components/header/TodoLogo'
-import TodoButton from './components/TodoButton'
 import TodoForm from './components/TodoForm'
+import TodoList from './components/TodoList'
 
 function App() {
   const [inputValue, setInputValue] = useState('')
@@ -68,19 +68,11 @@ function App() {
           onChange={handleInputChange}
           onSubmit={handleInputSubmit}
         />
-
-        <ul>
-          {todos.map(({ id, todoList, isCompleted }) => (
-            <li
-              key={id}
-              style={isCompleted ? { textDecoration: 'line-through' } : {}}
-            >
-              <h2>{todoList}</h2>
-              <TodoButton btnText="수정" onClick={toggleTodos} id={id} />
-              <TodoButton btnText="삭제" onClick={deleteTodos} id={id} />
-            </li>
-          ))}
-        </ul>
+        <TodoList
+          todos={todos}
+          toggleTodos={toggleTodos}
+          deleteTodos={deleteTodos}
+        />
 
         <p>all</p>
         <span>{allTodos(todos)}개</span>
