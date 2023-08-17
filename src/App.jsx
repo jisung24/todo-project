@@ -5,34 +5,34 @@ import TodoForm from './components/TodoForm'
 import TodoList from './components/TodoList'
 import TodoCount from './components/TodoCount'
 
+const MIN_LENGTH = 2
+const MAX_LENGTH = 20
+
+const lengthCheck = (inputLength) => {
+  return inputLength >= MIN_LENGTH && inputLength <= MAX_LENGTH
+}
+
 function App() {
   console.log('나 언제 렌더링 될까?')
 
   const [todos, setTodos] = useState([
-    { id: 1, todoList: '안녕1', isCompleted: false },
-    { id: 6, todoList: '지성님 바보', isCompleted: false },
+    { id: 1, content: '안녕1', completed: false },
+    { id: 6, content: '지성님 바보', completed: false },
   ])
 
-  const lengthCheck = (inputLength) => {
-    if (inputLength >= 2 && inputLength <= 20) return true
-    else return false
-  }
+  const checkDuplicated = (findValue) =>
+    todos.find((e) => e.content === findValue)
 
-  const isDuplicateCheck = (findValue) => {
-    const findOne = todos.find((e) => e.todoList === findValue)
-    if (!findOne) return true
-    else return false
-  }
   const handleInputSubmit = (e) => {
     e.preventDefault()
     const value = e.target.querySelector('input').value
-    if (lengthCheck(value.length) && isDuplicateCheck(value)) {
+    if (lengthCheck(value.length) && !checkDuplicated(value)) {
       setTodos((prev) => [
         ...prev,
         {
           id: prev[prev.length - 1].id + 1,
-          todoList: value,
-          isCompleted: false,
+          content: value,
+          completed: false,
         },
       ])
       e.target.reset()
@@ -43,7 +43,7 @@ function App() {
 
   const toggleTodos = (id) => {
     const findTodoElement = todos.find((e) => e.id === id)
-    findTodoElement.isCompleted = !findTodoElement.isCompleted
+    findTodoElement.completed = !findTodoElement.completed
     setTodos((prev) => [...prev]) // []를 새로 씌워줘야, 배열 주소값이 바껴 값이 바뀌고, set이 호출된다
   }
 
@@ -57,7 +57,7 @@ function App() {
   }, [todos])
 
   const completedTodos = useMemo(() => {
-    const completed = todos.filter((e) => e.isCompleted)
+    const completed = todos.filter((e) => e.completed)
     return completed.length
   }, [todos])
 
