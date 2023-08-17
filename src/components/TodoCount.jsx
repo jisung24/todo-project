@@ -1,21 +1,16 @@
 import React from 'react'
 
-export default function TodoCount({
-  allTodos,
-  completedTodos,
-  unCompletedTodos,
-  todos,
-}) {
+export default function TodoCount({ allTodos, completedTodos }) {
   return (
     <>
       <p>all</p>
-      <span>{allTodos(todos)}개</span>
+      <span>{allTodos}개</span>
 
       <p>completed</p>
-      <span>{completedTodos(todos)}개</span>
+      <span>{completedTodos}개</span>
 
       <p>not</p>
-      <span>{unCompletedTodos(todos)}개</span>
+      <span>{allTodos - completedTodos}개</span>
     </>
   )
 }

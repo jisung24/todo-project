@@ -1,5 +1,5 @@
 import './App.css'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import TodoLogo from './components/header/TodoLogo'
 import TodoForm from './components/TodoForm'
 import TodoList from './components/TodoList'
@@ -9,10 +9,6 @@ function App() {
   const [inputValue, setInputValue] = useState('')
   const [todos, setTodos] = useState([
     { id: 1, todoList: '안녕1', isCompleted: false },
-    { id: 2, todoList: '안녕2', isCompleted: false },
-    { id: 3, todoList: '안녕3', isCompleted: false },
-    { id: 4, todoList: '안녕4', isCompleted: false },
-    { id: 5, todoList: '안녕5', isCompleted: false },
     { id: 6, todoList: '지성님 바보', isCompleted: false },
   ])
   const handleInputChange = (e) => {
@@ -40,7 +36,7 @@ function App() {
           isCompleted: false,
         },
       ])
-      setInputValue((prev) => '') // 다시 빈 값으로 만들어주기
+      setInputValue('') // 다시 빈 값으로 만들어주기
     } else {
       alert('2자 이상 - 20자 이하로만 입력할 수 있습니다 or 이미 있습니다.')
     }
@@ -57,19 +53,14 @@ function App() {
     setTodos((prev) => [...deletedElement])
   }
 
-  const allTodos = (todos) => {
-    return todos.length
-  }
+  const allTodos = useMemo(() => {
+    return todos.length + inputValue
+  }, [todos])
 
-  const completedTodos = (todos) => {
+  const completedTodos = useMemo(() => {
     const completed = todos.filter((e) => e.isCompleted)
     return completed.length
-  }
-
-  const unCompletedTodos = (todos) => {
-    const unCompleted = todos.filter((e) => !e.isCompleted)
-    return unCompleted.length
-  }
+  }, [todos])
 
   return (
     <div className="App">
@@ -93,12 +84,7 @@ function App() {
         />
 
         <div className="todoBottom">
-          <TodoCount
-            allTodos={allTodos}
-            completedTodos={completedTodos}
-            unCompletedTodos={unCompletedTodos}
-            todos={todos}
-          />
+          <TodoCount allTodos={allTodos} completedTodos={completedTodos} />
         </div>
       </main>
     </div>
