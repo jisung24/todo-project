@@ -19,16 +19,20 @@ function App() {
   }
 
   const handleInputSubmit = (e) => {
-    e.preventDefault()
-    setTodos((prev) => [
-      ...prev,
-      {
-        id: prev[prev.length - 1].id + 1,
-        todoList: inputValue,
-        isCompleted: false,
-      },
-    ])
-    setInputValue((prev) => '') // 다시 빈 값으로 만들어주기
+    if (inputValue.length >= 2 && inputValue.length <= 20) {
+      e.preventDefault()
+      setTodos((prev) => [
+        ...prev,
+        {
+          id: prev[prev.length - 1].id + 1,
+          todoList: inputValue,
+          isCompleted: false,
+        },
+      ])
+      setInputValue((prev) => '') // 다시 빈 값으로 만들어주기
+    } else {
+      alert('2자 이상 - 20자 이하로만 입력할 수 있습니다.')
+    }
   }
 
   const toggleTodos = (id) => {
