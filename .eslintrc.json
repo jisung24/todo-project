@@ -19,10 +19,16 @@
     },
     "plugins": ["react", "@typescript-eslint"],
     "rules": {
-        "react/react-in-jsx-scope": "off",
-        "prettier/prettier": ["error", { "singleQuote": true, "semi": false }],
-        "space-before-function-paren": ["error", "never"]
-    }
+      "prettier/prettier": ["error", { "singleQuote": true, "semi": false, "space-before-function-paren": ["error", "never"]}],
+      "space-before-function-paren": ["error", {
+          "anonymous": "never",
+          "named": "never",
+          "asyncArrow": "always"
+        }],
+      "react/prop-types" : "off",
+      "comma-dangle": 0,
+      "react/react-in-jsx-scope": "off"
+  }
 
   }
   
