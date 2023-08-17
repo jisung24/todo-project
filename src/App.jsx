@@ -3,6 +3,7 @@ import { useState } from 'react'
 import TodoLogo from './components/header/TodoLogo'
 import TodoForm from './components/TodoForm'
 import TodoList from './components/TodoList'
+import TodoCount from './components/TodoCount'
 
 function App() {
   const [inputValue, setInputValue] = useState('')
@@ -74,14 +75,12 @@ function App() {
           deleteTodos={deleteTodos}
         />
 
-        <p>all</p>
-        <span>{allTodos(todos)}개</span>
-
-        <p>completed</p>
-        <span>{completedTodos(todos)}개</span>
-
-        <p>not</p>
-        <span>{unCompletedTodos(todos)}개</span>
+        <TodoCount
+          allTodos={allTodos}
+          completedTodos={completedTodos}
+          unCompletedTodos={unCompletedTodos}
+          todos={todos}
+        />
       </main>
     </div>
   )
