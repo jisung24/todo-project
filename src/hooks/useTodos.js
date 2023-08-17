@@ -35,10 +35,12 @@ export default function useTodos() {
   }
 
   const toggleTodos = (id) => {
-    const newTodos = [...todos]
-    const findTodoElement = newTodos.find((e) => e.id === id)
-    findTodoElement.completed = !findTodoElement.completed
-    setTodos(newTodos)
+    setTodos(
+      todos.map((todo) => ({
+        ...todo,
+        completed: todo.id === id ? !todo.completed : todo.completed,
+      })),
+    )
   }
 
   const deleteTodos = (id) => {
@@ -48,7 +50,7 @@ export default function useTodos() {
   const allTodos = useMemo(() => todos.length, [todos])
 
   const completedTodos = useMemo(
-    () => todos.filter((e) => e.completed),
+    () => todos.filter((e) => e.completed).length,
     [todos],
   )
 

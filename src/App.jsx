@@ -26,7 +26,6 @@ function App() {
         submit이 일어나면 그 떄 변해도 상관없는데...
         */}
         <TodoForm onSubmit={onSubmit} />
-
         <TodoList
           todos={todos}
           toggleTodos={toggleTodos}

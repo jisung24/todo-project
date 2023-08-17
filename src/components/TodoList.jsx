@@ -2,6 +2,7 @@ import React from 'react'
 import TodoButton from './TodoButton'
 
 export default function TodoList({ todos, toggleTodos, deleteTodos }) {
+  console.log(todos)
   return (
     <ul>
       {todos.map(({ id, content, completed }) => (
