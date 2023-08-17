@@ -1,11 +1,11 @@
 import './App.css'
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import TodoLogo from './components/header/TodoLogo'
 import TodoButton from './components/TodoButton'
+import TodoForm from './components/TodoForm'
 
 function App() {
   const [inputValue, setInputValue] = useState('')
-  const inputRef = useRef(null)
   const [todos, setTodos] = useState([
     { id: 1, todoList: '안녕1', isCompleted: false },
     { id: 2, todoList: '안녕2', isCompleted: false },
@@ -60,15 +60,14 @@ function App() {
       </header>
 
       <main>
-        <form onSubmit={handleInputSubmit}>
-          <input
-            type="text"
-            value={inputValue}
-            onChange={handleInputChange}
-            ref={inputRef}
-          />
-          <button>제출!</button>
-        </form>
+        {/* 단점, inputValue가 계속해서 변하는데, 이 때 다른 자식들도 다 변한다.
+        submit이 일어나면 그 떄 변해도 상관없는데...
+        */}
+        <TodoForm
+          inputValue={inputValue}
+          onChange={handleInputChange}
+          onSubmit={handleInputSubmit}
+        />
 
         <ul>
           {todos.map(({ id, todoList, isCompleted }) => (
