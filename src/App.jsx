@@ -24,8 +24,8 @@ function App() {
   }
 
   const isDuplicateCheck = (findValue) => {
-    const findOne = todos.find((e) => e.todoList === inputValue)
-    if (findOne) return true
+    const findOne = todos.find((e) => e.todoList === findValue)
+    if (!findOne) return true
     else return false
   }
   const handleInputSubmit = (e) => {
@@ -41,7 +41,7 @@ function App() {
       ])
       setInputValue((prev) => '') // 다시 빈 값으로 만들어주기
     } else {
-      alert('2자 이상 - 20자 이하로만 입력할 수 있습니다.')
+      alert('2자 이상 - 20자 이하로만 입력할 수 있습니다 or 이미 있습니다.')
     }
   }
 
