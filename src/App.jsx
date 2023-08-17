@@ -42,14 +42,14 @@ function App() {
   }
 
   const toggleTodos = (id) => {
-    const findTodoElement = todos.find((e) => e.id === id)
+    const newTodos = [...todos]
+    const findTodoElement = newTodos.find((e) => e.id === id)
     findTodoElement.completed = !findTodoElement.completed
-    setTodos((prev) => [...prev]) // []를 새로 씌워줘야, 배열 주소값이 바껴 값이 바뀌고, set이 호출된다
+    setTodos(newTodos)
   }
 
   const deleteTodos = (id) => {
-    const deletedElement = todos.filter((e) => e.id !== id)
-    setTodos((prev) => [...deletedElement])
+    setTodos(todos.filter((e) => e.id !== id))
   }
 
   const allTodos = useMemo(() => {
