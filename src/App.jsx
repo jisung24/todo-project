@@ -28,6 +28,7 @@ function App() {
         isCompleted: false,
       },
     ])
+    setInputValue((prev) => '') // 다시 빈 값으로 만들어주기
   }
 
   const toggleTodos = (id) => {
