@@ -24,13 +24,12 @@ function App() {
     return inputLength >= MIN_LENGTH && inputLength <= MAX_LENGTH
   }
 
-  const isDuplicateCheck = (findValue) => {
-    const findOne = todos.find((e) => e.content === findValue)
-    if (!findOne) return true
-    else return false
+  const checkDuplicate = (findValue) => {
+    // 같은게 있는지 1개 찾는거...!
+    return todos.find((e) => e.content === findValue)
   }
   const handleInputSubmit = (e) => {
-    if (lengthCheck(inputValue.length) && isDuplicateCheck(inputValue)) {
+    if (lengthCheck(inputValue.length) && checkDuplicate(inputValue)) {
       e.preventDefault()
       setTodos((prev) => [
         ...prev,
