@@ -1,8 +1,6 @@
 import './App.css'
-import TodoLogo from './components/header/TodoLogo'
-import TodoForm from './components/TodoForm'
-import TodoList from './components/TodoList'
-import TodoCount from './components/TodoCount'
+
+import { TodoCount, TodoForm, TodoList, TodoLogo } from './components'
 import { useTodos } from './hooks'
 
 function App() {
