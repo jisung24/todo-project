@@ -1,9 +1,9 @@
 import React from 'react'
 
-export default React.memo(function TodoLogo({ logoText }) {
+export default React.memo(function TodoLogo({ children }) {
   return (
     <h2>
-      <span>{logoText}</span>
+      <span>{children}</span>
     </h2>
   )
 })

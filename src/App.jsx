@@ -54,7 +54,7 @@ function App() {
   }
 
   const allTodos = useMemo(() => {
-    return todos.length + inputValue
+    return todos.length
   }, [todos])
 
   const completedTodos = useMemo(() => {
@@ -65,7 +65,7 @@ function App() {
   return (
     <div className="App">
       <header>
-        <TodoLogo logoText="JS TodoList" />
+        <TodoLogo>JS TodoList</TodoLogo>
       </header>
 
       <main>
@@ -77,6 +77,7 @@ function App() {
           onChange={handleInputChange}
           onSubmit={handleInputSubmit}
         />
+
         <TodoList
           todos={todos}
           toggleTodos={toggleTodos}
