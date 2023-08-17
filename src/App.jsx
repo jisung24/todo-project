@@ -6,14 +6,12 @@ import TodoList from './components/TodoList'
 import TodoCount from './components/TodoCount'
 
 function App() {
-  const [inputValue, setInputValue] = useState('')
+  console.log('나 언제 렌더링 될까?')
+
   const [todos, setTodos] = useState([
     { id: 1, todoList: '안녕1', isCompleted: false },
     { id: 6, todoList: '지성님 바보', isCompleted: false },
   ])
-  const handleInputChange = (e) => {
-    setInputValue((prev) => e.target.value)
-  }
 
   const lengthCheck = (inputLength) => {
     if (inputLength >= 2 && inputLength <= 20) return true
@@ -26,17 +24,18 @@ function App() {
     else return false
   }
   const handleInputSubmit = (e) => {
-    if (lengthCheck(inputValue.length) && isDuplicateCheck(inputValue)) {
-      e.preventDefault()
+    e.preventDefault()
+    const value = e.target.querySelector('input').value
+    if (lengthCheck(value.length) && isDuplicateCheck(value)) {
       setTodos((prev) => [
         ...prev,
         {
           id: prev[prev.length - 1].id + 1,
-          todoList: inputValue,
+          todoList: value,
           isCompleted: false,
         },
       ])
-      setInputValue('') // 다시 빈 값으로 만들어주기
+      e.target.reset()
     } else {
       alert('2자 이상 - 20자 이하로만 입력할 수 있습니다 or 이미 있습니다.')
     }
@@ -72,11 +71,7 @@ function App() {
         {/* 단점, inputValue가 계속해서 변하는데, 이 때 다른 자식들도 다 변한다.
         submit이 일어나면 그 떄 변해도 상관없는데...
         */}
-        <TodoForm
-          inputValue={inputValue}
-          onChange={handleInputChange}
-          onSubmit={handleInputSubmit}
-        />
+        <TodoForm onSubmit={handleInputSubmit} />
 
         <TodoList
           todos={todos}
