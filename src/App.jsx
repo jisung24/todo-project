@@ -1,5 +1,5 @@
 import './App.css'
-import { useMemo, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import TodoLogo from './components/header/TodoLogo'
 import TodoForm from './components/TodoForm'
 import TodoList from './components/TodoList'
@@ -20,6 +20,7 @@ function App() {
     { id: 6, content: '지성님 바보', completed: false },
   ])
 
+  // AS-IS: App이 렌더링 될 때 마다, checkDuplicated가 다시 정의된다.
   const checkDuplicated = (findValue) =>
     todos.find((e) => e.content === findValue)
 
@@ -52,14 +53,12 @@ function App() {
     setTodos(todos.filter((e) => e.id !== id))
   }
 
-  const allTodos = useMemo(() => {
-    return todos.length
-  }, [todos])
+  const allTodos = useMemo(() => todos.length, [todos])
 
-  const completedTodos = useMemo(() => {
-    const completed = todos.filter((e) => e.completed)
-    return completed.length
-  }, [todos])
+  const completedTodos = useMemo(
+    () => todos.filter((e) => e.completed),
+    [todos],
+  )
 
   return (
     <div className="App">
