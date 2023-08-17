@@ -1,6 +1,7 @@
 import './App.css'
 import { useRef, useState } from 'react'
 import Button from './components/atoms/Button'
+import TodoLogo from './components/header/TodoLogo'
 
 function App() {
   const [inputValue, setInputValue] = useState('')
@@ -55,9 +56,7 @@ function App() {
   return (
     <div className="App">
       <header>
-        <h2>
-          <span>JS TodoList</span>
-        </h2>
+        <TodoLogo logoText="JS TodoList" />
       </header>
 
       <main>
