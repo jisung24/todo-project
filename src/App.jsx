@@ -26,6 +26,12 @@ function App() {
       },
     ])
   }
+
+  const toggleTodos = (id) => {
+    const findTodoElement = todos.find((e) => e.id === id)
+    findTodoElement.isCompleted = !findTodoElement.isCompleted
+    setTodos((prev) => [...prev]) // []를 새로 씌워줘야, 배열 주소값이 바껴 값이 바뀌고, set이 호출된다
+  }
   return (
     <div className="App">
       <header>
@@ -52,6 +58,20 @@ function App() {
               style={isCompleted ? { textDecoration: 'line-through' } : {}}
             >
               <h2>{todoList}</h2>
+              <button
+                onClick={() => {
+                  toggleTodos(id)
+                }}
+              >
+                수정
+              </button>
+              <button
+                onClick={() => {
+                  deleteTodos(id)
+                }}
+              >
+                삭제
+              </button>
             </li>
           ))}
         </ul>
