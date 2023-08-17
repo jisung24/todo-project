@@ -5,26 +5,27 @@ import TodoForm from './components/TodoForm'
 import TodoList from './components/TodoList'
 import TodoCount from './components/TodoCount'
 
+const MIN_LENGTH = 2
+const MAX_LENGTH = 20
 function App() {
   const [inputValue, setInputValue] = useState('')
   const [todos, setTodos] = useState([
-    { id: 1, todoList: '안녕1', isCompleted: false },
-    { id: 2, todoList: '안녕2', isCompleted: false },
-    { id: 3, todoList: '안녕3', isCompleted: false },
-    { id: 4, todoList: '안녕4', isCompleted: false },
-    { id: 5, todoList: '안녕5', isCompleted: false },
+    { id: 1, content: '안녕1', completed: false },
+    { id: 2, content: '안녕2', completed: false },
+    { id: 3, content: '안녕3', completed: false },
+    { id: 4, content: '안녕4', completed: false },
+    { id: 5, content: '안녕5', completed: false },
   ])
   const handleInputChange = (e) => {
     setInputValue((prev) => e.target.value)
   }
 
   const lengthCheck = (inputLength) => {
-    if (inputLength >= 2 && inputLength <= 20) return true
-    else return false
+    return inputLength >= MIN_LENGTH && inputLength <= MAX_LENGTH
   }
 
   const isDuplicateCheck = (findValue) => {
-    const findOne = todos.find((e) => e.todoList === findValue)
+    const findOne = todos.find((e) => e.content === findValue)
     if (!findOne) return true
     else return false
   }
@@ -35,8 +36,8 @@ function App() {
         ...prev,
         {
           id: prev[prev.length - 1].id + 1,
-          todoList: inputValue,
-          isCompleted: false,
+          content: inputValue,
+          completed: false,
         },
       ])
       setInputValue((prev) => '') // 다시 빈 값으로 만들어주기
@@ -47,7 +48,7 @@ function App() {
 
   const toggleTodos = (id) => {
     const findTodoElement = todos.find((e) => e.id === id)
-    findTodoElement.isCompleted = !findTodoElement.isCompleted
+    findTodoElement.completed = !findTodoElement.completed
     setTodos((prev) => [...prev]) // []를 새로 씌워줘야, 배열 주소값이 바껴 값이 바뀌고, set이 호출된다
   }
 
@@ -61,12 +62,12 @@ function App() {
   }
 
   const completedTodos = (todos) => {
-    const completed = todos.filter((e) => e.isCompleted)
+    const completed = todos.filter((e) => e.completed)
     return completed.length
   }
 
   const unCompletedTodos = (todos) => {
-    const unCompleted = todos.filter((e) => !e.isCompleted)
+    const unCompleted = todos.filter((e) => !e.completed)
     return unCompleted.length
   }
   return (
@@ -76,7 +77,10 @@ function App() {
       </header>
 
       <main>
-        {/* 단점, inputValue가 계속해서 변하는데, 이 때 다른 자식들도 다 변한다.
+        {/*
+        단점, inputValue가 계속해서 변하는데, 이 때 다른 자식들도 다 변한다.
+        부모의 상태가 변하면 자식의 state도 다시 호출되기 때문이다.
+        근데 onChange와 onSubmit타이밍만 늦춰주면 될 것 같다.
         submit이 일어나면 그 떄 변해도 상관없는데...
         */}
         <TodoForm
