@@ -13,6 +13,7 @@ function App() {
     { id: 3, todoList: '안녕3', isCompleted: false },
     { id: 4, todoList: '안녕4', isCompleted: false },
     { id: 5, todoList: '안녕5', isCompleted: false },
+    { id: 6, todoList: '지성님 바보', isCompleted: false },
   ])
   const handleInputChange = (e) => {
     setInputValue((prev) => e.target.value)
