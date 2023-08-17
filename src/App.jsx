@@ -18,8 +18,18 @@ function App() {
     setInputValue((prev) => e.target.value)
   }
 
+  const lengthCheck = (inputLength) => {
+    if (inputLength >= 2 && inputLength <= 20) return true
+    else return false
+  }
+
+  const isDuplicateCheck = (findValue) => {
+    const findOne = todos.find((e) => e.todoList === inputValue)
+    if (findOne) return true
+    else return false
+  }
   const handleInputSubmit = (e) => {
-    if (inputValue.length >= 2 && inputValue.length <= 20) {
+    if (lengthCheck(inputValue.length) && isDuplicateCheck(inputValue)) {
       e.preventDefault()
       setTodos((prev) => [
         ...prev,
