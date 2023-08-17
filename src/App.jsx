@@ -1,7 +1,7 @@
 import './App.css'
 import { useRef, useState } from 'react'
-import Button from './components/atoms/Button'
 import TodoLogo from './components/header/TodoLogo'
+import TodoButton from './components/TodoButton'
 
 function App() {
   const [inputValue, setInputValue] = useState('')
@@ -77,8 +77,8 @@ function App() {
               style={isCompleted ? { textDecoration: 'line-through' } : {}}
             >
               <h2>{todoList}</h2>
-              <Button text="수정" onClick={toggleTodos} id={id} />
-              <Button text="삭제" onClick={deleteTodos} id={id} />
+              <TodoButton btnText="수정" onClick={toggleTodos} id={id} />
+              <TodoButton btnText="삭제" onClick={deleteTodos} id={id} />
             </li>
           ))}
         </ul>
