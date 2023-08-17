@@ -70,6 +70,7 @@ function App() {
     const unCompleted = todos.filter((e) => !e.isCompleted)
     return unCompleted.length
   }
+
   return (
     <div className="App">
       <header>
@@ -91,12 +92,14 @@ function App() {
           deleteTodos={deleteTodos}
         />
 
-        <TodoCount
-          allTodos={allTodos}
-          completedTodos={completedTodos}
-          unCompletedTodos={unCompletedTodos}
-          todos={todos}
-        />
+        <div className="todoBottom">
+          <TodoCount
+            allTodos={allTodos}
+            completedTodos={completedTodos}
+            unCompletedTodos={unCompletedTodos}
+            todos={todos}
+          />
+        </div>
       </main>
     </div>
   )
