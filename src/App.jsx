@@ -87,7 +87,7 @@ function App() {
   // 다시 선언이 되어야 할 이유가 있나...?
   useEffect(() => {
     const todoFetch = async () => {
-      const res = await response('/todos')
+      const res = await response('/todos', {})
       setTodos((prev) => [...res])
     }
     todoFetch()
