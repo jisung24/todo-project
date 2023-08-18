@@ -20,7 +20,7 @@ function App() {
     setInputValue((prev) => e.target.value)
   }
 
-  const lengthCheck = (inputLength) => {
+  const checkLength = (inputLength) => {
     return inputLength >= MIN_LENGTH && inputLength <= MAX_LENGTH
   }
 
@@ -29,7 +29,7 @@ function App() {
     return todos.find((e) => e.content === findValue)
   }
   const handleInputSubmit = (e) => {
-    if (lengthCheck(inputValue.length) && checkDuplicate(inputValue)) {
+    if (checkLength(inputValue.length) && !checkDuplicate(inputValue)) {
       e.preventDefault()
       setTodos((prev) => [
         ...prev,
