@@ -9,13 +9,13 @@ export default function TodoCount({
   return (
     <>
       <p>all</p>
-      <span>{allTodos(todos)}개</span>
+      <span>{allTodos}개</span>
 
       <p>completed</p>
-      <span>{completedTodos(todos)}개</span>
+      <span>{completedTodos}개</span>
 
       <p>not</p>
-      <span>{unCompletedTodos(todos)}개</span>
+      <span>{unCompletedTodos}개</span>
     </>
   )
 }

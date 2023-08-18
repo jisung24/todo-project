@@ -1,5 +1,5 @@
 import './App.css'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import TodoLogo from './components/header/TodoLogo'
 import TodoForm from './components/TodoForm'
 import TodoList from './components/TodoList'
@@ -61,14 +61,16 @@ function App() {
   }
 
   const completedTodos = (todos) => {
-    const completed = todos.filter((e) => e.completed)
-    return completed.length
+    return todos.filter((e) => e.completed).length
   }
 
   const unCompletedTodos = (todos) => {
-    const unCompleted = todos.filter((e) => !e.completed)
-    return unCompleted.length
+    return todos.filter((e) => !e.completed).length
   }
+
+  const countOfAllTodos = useMemo(() => allTodos(todos), [todos])
+  const countOfCompleted = useMemo(() => completedTodos(todos), [todos])
+  const countOfUnCompleted = useMemo(() => unCompletedTodos(todos), [todos])
   return (
     <div className="App">
       <header>
@@ -94,9 +96,9 @@ function App() {
         />
 
         <TodoCount
-          allTodos={allTodos}
-          completedTodos={completedTodos}
-          unCompletedTodos={unCompletedTodos}
+          allTodos={countOfAllTodos}
+          completedTodos={countOfCompleted}
+          unCompletedTodos={countOfUnCompleted}
           todos={todos}
         />
       </main>
