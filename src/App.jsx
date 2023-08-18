@@ -25,7 +25,6 @@ function App() {
   }
 
   const checkDuplicate = (findValue) => {
-    // 같은게 있는지 1개 찾는거...!
     return todos.find((e) => e.content === findValue)
   }
   const handleInputSubmit = (e) => {
@@ -39,7 +38,7 @@ function App() {
           completed: false,
         },
       ])
-      setInputValue((prev) => '') // 다시 빈 값으로 만들어주기
+      setInputValue('')
     } else {
       alert('2자 이상 - 20자 이하로만 입력할 수 있습니다 or 이미 있습니다.')
     }
@@ -56,21 +55,15 @@ function App() {
     setTodos((prev) => [...deletedElement])
   }
 
-  const allTodos = (todos) => {
-    return todos.length
-  }
-
-  const completedTodos = (todos) => {
-    return todos.filter((e) => e.completed).length
-  }
-
-  const unCompletedTodos = (todos) => {
+  // 그냥 함수겉에 감싸는거야
+  // 그냥 그 함수를 선언할 때 바로 감싸주면 됨
+  // 즉, 값과 관련된 함수 => 매번 호출될 필요가 없음
+  // 그 값과 관련된 변수가 변하는게 아니라면 호출 필요없어
+  const allTodos = useMemo(() => todos.length)
+  const completedTodos = useMemo(() => todos.filter((e) => e.completed).length)
+  const unCompletedTodos = useMemo(() => {
     return todos.filter((e) => !e.completed).length
-  }
-
-  const countOfAllTodos = useMemo(() => allTodos(todos), [todos])
-  const countOfCompleted = useMemo(() => completedTodos(todos), [todos])
-  const countOfUnCompleted = useMemo(() => unCompletedTodos(todos), [todos])
+  })
   return (
     <div className="App">
       <header>
@@ -78,12 +71,6 @@ function App() {
       </header>
 
       <main>
-        {/*
-        단점, inputValue가 계속해서 변하는데, 이 때 다른 자식들도 다 변한다.
-        부모의 상태가 변하면 자식의 state도 다시 호출되기 때문이다.
-        근데 onChange와 onSubmit타이밍만 늦춰주면 될 것 같다.
-        submit이 일어나면 그 떄 변해도 상관없는데...
-        */}
         <TodoForm
           inputValue={inputValue}
           onChange={handleInputChange}
@@ -96,9 +83,9 @@ function App() {
         />
 
         <TodoCount
-          allTodos={countOfAllTodos}
-          completedTodos={countOfCompleted}
-          unCompletedTodos={countOfUnCompleted}
+          allTodos={allTodos}
+          completedTodos={completedTodos}
+          unCompletedTodos={unCompletedTodos}
           todos={todos}
         />
       </main>
