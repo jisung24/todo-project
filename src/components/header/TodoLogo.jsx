@@ -4,6 +4,8 @@ import React from 'react'
 // 다른 메모리를 가리켜, 파라미터가 바뀐것으로 취급, => 재랜더링 됨.
 
 // 함수 전달할 때 조심하자 => 굳이 계속 랜더링해야할게 아니라면, useCallback
+// 그럼 memo무조건 걸어놔도 되는거아닌가..?
+// 알아서 파라미터가 변할땐 호출되고, 그게 아니면 알아서 재랜더링 막으니까...
 export default React.memo(function TodoLogo({ logoText }) {
   return (
     <h2>

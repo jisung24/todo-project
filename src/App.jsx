@@ -24,9 +24,12 @@ function App() {
     return inputLength >= MIN_LENGTH && inputLength <= MAX_LENGTH
   }, [])
 
-  const checkDuplicate = useCallback((findValue) => {
-    return todos.find((e) => e.content === findValue)
-  }, [])
+  const checkDuplicate = useCallback(
+    (findValue) => {
+      return todos.find((e) => e.content === findValue)
+    },
+    [todos],
+  )
   const handleInputSubmit = (e) => {
     if (checkLength(inputValue.length) && !checkDuplicate(inputValue)) {
       e.preventDefault()
