@@ -4,18 +4,14 @@ import TodoLogo from './components/header/TodoLogo'
 import TodoForm from './components/TodoForm'
 import TodoList from './components/TodoList'
 import TodoCount from './components/TodoCount'
+import { response } from './apis/response.js'
 
 const MIN_LENGTH = 2
 const MAX_LENGTH = 20
 function App() {
   const [inputValue, setInputValue] = useState('')
-  const [todos, setTodos] = useState([
-    { id: 1, content: '안녕1', completed: false },
-    { id: 2, content: '안녕2', completed: false },
-    { id: 3, content: '안녕3', completed: false },
-    { id: 4, content: '안녕4', completed: false },
-    { id: 5, content: '안녕5', completed: false },
-  ])
+  const [todos, setTodos] = useState([])
+  console.log(todos)
   const handleInputChange = (e) => {
     setInputValue((prev) => e.target.value)
   }
@@ -26,7 +22,7 @@ function App() {
 
   const checkDuplicate = useCallback(
     (findValue) => {
-      return todos.find((e) => e.content === findValue)
+      return todos.find((e) => e.title === findValue)
     },
     [todos],
   )
@@ -37,7 +33,7 @@ function App() {
         ...prev,
         {
           id: prev[prev.length - 1].id + 1,
-          content: inputValue,
+          title: inputValue,
           completed: false,
         },
       ])
@@ -90,17 +86,12 @@ function App() {
   // 어차피 1번만 선언된 후에 계속 호출해서 쓰면 됨.
   // 다시 선언이 되어야 할 이유가 있나...?
   useEffect(() => {
-    console.log('toggleTodos')
-  }, [toggleTodos])
-  useEffect(() => {
-    console.log('deleteTodos')
-  }, [deleteTodos])
-  useEffect(() => {
-    console.log('checkLength')
-  }, [checkLength])
-  useEffect(() => {
-    console.log('checkDuplicate')
-  }, [checkDuplicate])
+    const todoFetch = async () => {
+      const res = await response('/todos')
+      setTodos((prev) => [...res])
+    }
+    todoFetch()
+  }, [])
   return (
     <div className="App">
       <header>
