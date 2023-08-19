@@ -1,16 +1,16 @@
 import { useState } from 'react'
 
-export default function useInput({ initialInputValue }) {
-  const [inputValue, setInputValue] = useState(initialInputValue)
+export default function useInput() {
+  const [inputValue, setInputValue] = useState('')
 
-  const handleChange = (e) => {
+  const handleInputChange = (e) => {
     setInputValue((prev) => e.target.value)
   }
 
-  const handleSubmit = (e) => {
-    console.log()
+  const handleInputSubmit = (e) => {
     e.preventDefault()
+    console.log('제출 inputValue >> ', inputValue)
   }
-  return [inputValue, handleChange, handleSubmit]
+
+  return [inputValue, handleInputChange, handleInputSubmit]
 }
-// html이 없으니까 html에 대한 useRef는 밖에서 해주는게 맞음

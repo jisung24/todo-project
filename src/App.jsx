@@ -11,7 +11,6 @@ const MAX_LENGTH = 20
 function App() {
   const [inputValue, setInputValue] = useState('')
   const [todos, setTodos] = useState([])
-  console.log(todos)
   const handleInputChange = (e) => {
     setInputValue((prev) => e.target.value)
   }
@@ -86,11 +85,11 @@ function App() {
   // 어차피 1번만 선언된 후에 계속 호출해서 쓰면 됨.
   // 다시 선언이 되어야 할 이유가 있나...?
   useEffect(() => {
-    const todoFetch = async () => {
+    const fetchTodoAPI = async () => {
       const res = await response('/todos', {})
       setTodos((prev) => [...res])
     }
-    todoFetch()
+    fetchTodoAPI()
   }, [])
   return (
     <div className="App">
